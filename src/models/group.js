@@ -21,7 +21,7 @@ const GroupSchema = new mongoose.Schema(
     },
     userId: {
       type: String,
-      required: true,
+      //required: true,
     },
   },
   {

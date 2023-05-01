@@ -60,7 +60,7 @@ export function updateGroup(req, res, next) {
 export function deleteGroup(req, res) {
   let _id = req.params._id
 
-  Group.findOneAndDelete(_id)
+  Group.findByIdAndDelete(_id)
     .then(() => {
       res.json('deleted')
     })

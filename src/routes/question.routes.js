@@ -1,17 +1,11 @@
 import express from 'express'
-import {
-    addQuestion,
-    getQuestions,
-    updateQuestion,
-    deleteQuestion,
-} from '../controller/question'
+import { addQuestion, getQuestions, updateQuestion, deleteQuestion } from '../controller/question'
 
 const questionRouter = express.Router()
 
-groupRouter.post('/addQuestion', addQuestion)
-groupRouter.get('/getQuestions', getQuestions)
-groupRouter.patch('/updateQuestion/', updateQuestion)
-groupRouter.delete('deleteQuestion', deleteQuestion)
-
+questionRouter.post('/addQuestion', addQuestion)
+questionRouter.get('/getQuestions', getQuestions)
+questionRouter.patch('/updateQuestion/', updateQuestion)
+questionRouter.delete('deleteQuestion', deleteQuestion)
 
 export default questionRouter

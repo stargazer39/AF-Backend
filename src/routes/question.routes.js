@@ -3,7 +3,7 @@ import { addQuestion, getQuestions, updateQuestion, deleteQuestion } from '../co
 
 const questionRouter = express.Router()
 
-questionRouter.post('/addQuestion', addQuestion)
+questionRouter.post("/addQuestion", addQuestion)
 questionRouter.get('/getQuestions', getQuestions)
 questionRouter.patch('/updateQuestion/', updateQuestion)
 questionRouter.delete('deleteQuestion', deleteQuestion)

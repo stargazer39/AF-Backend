@@ -10,6 +10,10 @@ const QuestionSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
+    Group: {
+      type: String,
+      required: false,
+    },
     Answers: [{
         answerPersonID:{
             type: String,
@@ -20,10 +24,7 @@ const QuestionSchema = new mongoose.Schema(
             required: false
         },
     }],
-  },
-  {
-    timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' },
-  },
+  },{timestamps : true}
 )
 
 const Question = mongoose.model('Question', QuestionSchema)

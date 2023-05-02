@@ -19,7 +19,6 @@ export function addNewPost(req, res) {
     groupId,
     contentText,
     images,
-    likes,
     comments,
   })
   console.log(newPost)

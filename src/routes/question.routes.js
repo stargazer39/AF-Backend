@@ -1,11 +1,32 @@
 import express from 'express'
-import { addQuestion, getQuestions, updateQuestion, deleteQuestion } from '../controller/question'
+import { 
+    addQuestionAnswer, 
+    getAllQuestions, 
+    getSingleUserQuestions, 
+    getGroupQuestions,   
+    updateAnswer, 
+    deleteAnswer,
+    deleteQuestion,
+    searchQuestion
+    } from '../controller/question'
 
 const questionRouter = express.Router()
 
-questionRouter.post("/addQuestion", addQuestion)
-questionRouter.get('/getQuestions', getQuestions)
-questionRouter.patch('/updateQuestion/', updateQuestion)
-questionRouter.delete('deleteQuestion', deleteQuestion)
+// Add a question or answer
+questionRouter.post("/addQuestionAnswer", addQuestionAnswer)
+
+//Updating Answers
+questionRouter.put('/updateAnswer/', updateAnswer)
+
+//Getting Questions
+questionRouter.get('/getAllQuestions', getAllQuestions)
+questionRouter.get('/getSingleUserQuestions', getSingleUserQuestions)
+questionRouter.get('/getGroupQuestions', getGroupQuestions)
+
+questionRouter.get('/searchQuestion', searchQuestion)
+
+// Removing
+questionRouter.put('/deleteAnswer/', deleteAnswer)
+questionRouter.delete('/deleteQuestion', deleteQuestion)
 
 export default questionRouter

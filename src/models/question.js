@@ -6,6 +6,10 @@ const QuestionSchema = new mongoose.Schema(
         type: String,
         required: false,
     },
+    UserName: {
+      type: String,
+      required: false,
+    },
     Question: {
       type: String,
       required: false,
@@ -15,9 +19,9 @@ const QuestionSchema = new mongoose.Schema(
       required: false,
     },
     Answers: [{
-        answerPersonID:{
-            type: String,
-            required: false
+        answerPersonName:{
+          type: String,
+          required: false
         },
         answer:{
             type: String,

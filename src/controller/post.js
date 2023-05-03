@@ -91,7 +91,7 @@ export async function searchPostsByContent(req, res) {
 
   // Define the search pipeline
   if (searchValue === undefined || searchValue === null || searchValue === '') {
-    posts = await Post.find()
+    posts = await Post.find({ ...findObj })
     return res.json(posts)
   } else {
     try {

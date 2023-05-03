@@ -6,24 +6,29 @@ const QuestionSchema = new mongoose.Schema(
         type: String,
         required: false,
     },
+    UserName: {
+      type: String,
+      required: false,
+    },
     Question: {
       type: String,
       required: false,
     },
+    Group: {
+      type: String,
+      required: false,
+    },
     Answers: [{
-        answerPersonID:{
-            type: String,
-            required: false
+        answerPersonName:{
+          type: String,
+          required: false
         },
         answer:{
             type: String,
             required: false
         },
     }],
-  },
-  {
-    timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' },
-  },
+  },{timestamps : true}
 )
 
 const Question = mongoose.model('Question', QuestionSchema)

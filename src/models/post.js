@@ -51,7 +51,7 @@ const postSchema = new mongoose.Schema({
     default: {},
   },
 })
-
+postSchema.index({ contentText: 'text' })
 const Post = mongoose.model('Post', postSchema)
 
 module.exports = Post

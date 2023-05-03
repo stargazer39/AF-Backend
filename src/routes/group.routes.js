@@ -7,6 +7,8 @@ import {
   getGroupsByCategory,
   getOneGroup,
   getGroupsByUserId,
+  addFollows,
+  removeFollows
 } from '../controller/group'
 
 const groupRouter = express.Router()
@@ -18,5 +20,7 @@ groupRouter.delete('/deleteGroup/:_id', deleteGroup)
 groupRouter.get('/getGroupByCate/:category', getGroupsByCategory)
 groupRouter.get('/getOneGroup/:_id', getOneGroup)
 groupRouter.get('/getGroupByUserId/:userId', getGroupsByUserId)
+groupRouter.patch('/addFollows/:_id', addFollows)
+groupRouter.patch('/removeFollows/:_id', removeFollows)
 
 export default groupRouter

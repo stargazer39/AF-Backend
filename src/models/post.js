@@ -54,10 +54,6 @@ const postSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
-  userName: {
-    type: String,
-    required: false,
-  },
   photoUrl: {
     type: String,
     required: false,

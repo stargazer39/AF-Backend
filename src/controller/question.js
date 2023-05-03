@@ -68,7 +68,8 @@ export async function deleteAnswer(req, res) {
 //get ALL questions
 export async function getAllQuestions(req, res) {
     try {
-        const QuestionModal = await Question.find()
+        const QuestionModal = await Question.find({Group : req.query.group})
+        console.log(req.query.group)
         res.status(200).json(QuestionModal)
     }
     catch (e) {
@@ -80,6 +81,9 @@ export async function getAllQuestions(req, res) {
 //get questions of a single USER
 export async function getSingleUserQuestions(req, res) {
     try {
+        
+        // const id = mongoose.Types.ObjectId(req.query.userID);
+        console.log(req.query.userID)
         const QuestionModal = await Question.find({UserId : req.query.userID}).sort({createdAt: -1})
         res.status(200).json(QuestionModal)
     }

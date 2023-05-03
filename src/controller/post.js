@@ -13,6 +13,8 @@ export function addNewPost(req, res) {
   const contentText = req.body.contentText
   const images = req.body.images
   const comments = req.body.comments
+  const userName = req.body.userName
+  const photoUrl = req.body.photoUrl
 
   const newPost = new Post({
     userId,
@@ -20,6 +22,8 @@ export function addNewPost(req, res) {
     contentText,
     images,
     comments,
+    userName,
+    photoUrl,
   })
   console.log(newPost)
 

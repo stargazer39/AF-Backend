@@ -19,10 +19,12 @@ const GroupSchema = new mongoose.Schema(
       type: [String],
       //required: true,
     },
-    userId: {
+    adminId: {
       type: String,
       //required: true,
     },
+    followersUserId:
+      [{ type: String }] ,
   },
   {
     versionKey: false,

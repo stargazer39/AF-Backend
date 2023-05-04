@@ -1,7 +1,7 @@
 let Question = require('../models/question')
 import mongoose from 'mongoose';
 // const { addQuestionAnswer } = require('../services/question');
-import { addQuestionAnswers, updateAnswers, deleteQuestionAnswers, getUserQuestion, getGroupQuestion, deleteQuestions, getEveryQuestion } from '../services/question'
+import { addQuestionAnswers, updateAnswers, deleteQuestionAnswers, getUserQuestion, getGroupQuestion, deleteQuestions, getEveryQuestion, searchQuestions } from '../services/question'
 
 
 // Add a question or answer a question
@@ -92,17 +92,6 @@ export async function getSingleUserQuestions(req, res) {
 }
 
 //get all not used ATM
-// export async function getEveryQuestions(req, res) {
-//     try {
-//         const QuestionModal = await Question.find().sort({createdAt: -1})
-//         res.status(200).json(QuestionModal)
-//     }
-//     catch (e) {
-//         console.log(e);
-//         res.status(500).send("Internal server error");
-//     }
-// }
-
 export async function getEveryQuestions(req, res){
   try {
       const questions = await getEveryQuestion();
@@ -114,19 +103,32 @@ export async function getEveryQuestions(req, res){
 }
 
 //Searching not used ATM
-export async function searchQuestion(req, res) {
-    try {
-      const questions = await Question.find({
-        Question: { $regex: new RegExp(req.query.question, 'i') }
-      });
+// export async function searchQuestion(req, res) {
+//     try {
+//       const questions = await Question.find({
+//         Question: { $regex: new RegExp(req.query.question, 'i') }
+//       });
+//       if (questions.length === 0) {
+//         return res.status(404).json({ message: 'Try different keywords' });
+//       }
+//       res.json(questions);
+//     } catch (error) {
+//       console.error(error.message);
+//       res.status(500).json({ message: 'Server error' });
+//     }
+// }
+
+export async function searchQuestion(req, res){
+  try {
+      const questions = await searchQuestions(req.query.question, req.query.group);
       if (questions.length === 0) {
-        return res.status(404).json({ message: 'Try different keywords' });
+          return res.status(404).json({ message: 'Try different keywords' });
       }
       res.json(questions);
-    } catch (error) {
+  } catch (error) {
       console.error(error.message);
       res.status(500).json({ message: 'Server error' });
-    }
+  }
 }
 
 

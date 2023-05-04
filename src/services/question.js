@@ -7,7 +7,7 @@ const {
     getAllQuestions, 
     deleteQuestion,
     getEveryQuestions,
-    searchQuestions
+    searchQuestion
    } = require('../repository/question');
 
 export async function addQuestionAnswers(data) {
@@ -47,6 +47,6 @@ export async function getEveryQuestion(){
     return await getEveryQuestions();
 }
 
-export async function searchQuestion(question){
-    return await searchQuestions(question);
+export async function searchQuestions(question, group){
+    return await searchQuestion(question, group);
 }

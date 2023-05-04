@@ -40,20 +40,22 @@ async function getSingleUserQuestions(userID) {
 async function getAllQuestions(group) {
     const questions = await Question.find({Group : group}).sort({createdAt: -1});
     return questions;
+    
 }
 
 const deleteQuestion = async (id) =>  {
-    return await Question.findOneAndDelete(id);
+    return await Question.findOneAndDelete({_id : id});
 }
 
 async function getEveryQuestions(){
     return await Question.find().sort({createdAt: -1});
 }
 
-async function searchQuestions(question){
+async function searchQuestion(question, group){
     return await Question.find({
-        Question: { $regex: new RegExp(question, 'i') }
-    });
+        Question: { $regex: new RegExp(question, 'i')},
+        Group : group
+    }).sort({createdAt: -1});
 }
 
 module.exports = {
@@ -65,5 +67,5 @@ module.exports = {
     getAllQuestions,
     deleteQuestion,
     getEveryQuestions,
-    searchQuestions
+    searchQuestion
 };

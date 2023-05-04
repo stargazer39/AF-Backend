@@ -1,7 +1,7 @@
 let Question = require('../models/question')
 import mongoose from 'mongoose';
 // const { addQuestionAnswer } = require('../services/question');
-import { addQuestionAnswers, updateAnswers, deleteQuestionAnswers, getUserQuestion, getGroupQuestion, deleteQuestions, getEveryQuestion, searchQuestions } from '../services/question'
+import { addQuestionAnswers, updateAnswers, deleteQuestionAnswers, getUserQuestion, getAllTheQuestion, deleteQuestions, getEveryQuestion, searchQuestions } from '../services/question'
 
 
 // Add a question or answer a question
@@ -71,8 +71,7 @@ export const deleteQuestion = async (req, res) => {
 // get group questions
 export async function getAllQuestions(req, res) {
   try {
-      const questions = await getGroupQuestion(req.query.group);
-      console.log(req.query.group);
+      const questions = await getAllTheQuestion(req.query.search);
       res.status(200).json(questions);
   } catch (e) {
       console.log(e);

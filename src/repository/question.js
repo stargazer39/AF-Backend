@@ -37,8 +37,10 @@ async function getSingleUserQuestions(userID) {
     return questions;
 }
 
-async function getAllQuestions(group) {
-    const questions = await Question.find({Group : group}).sort({createdAt: -1});
+async function getAllQuestions(search) {
+    const questions = await Question.find({
+        Question: { $regex: new RegExp(search, 'i')}
+    }).sort({createdAt: -1});
     return questions;
     
 }

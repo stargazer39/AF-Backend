@@ -34,8 +34,8 @@ export async function getUserQuestion(userID) {
     return questions;
 }
 
-export async function getGroupQuestion(group) {
-    const questions = await getAllQuestions(group);
+export async function getAllTheQuestion(search) {
+    const questions = await getAllQuestions(search);
     return questions;
 }
 

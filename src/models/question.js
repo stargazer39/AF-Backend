@@ -23,6 +23,10 @@ const QuestionSchema = new mongoose.Schema(
           type: String,
           required: false
         },
+        answerPersonID:{
+          type: String,
+          required: false
+        },
         answer:{
             type: String,
             required: false

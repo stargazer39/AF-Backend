@@ -3,7 +3,7 @@ import {
     addQuestionAnswer, 
     getAllQuestions, 
     getSingleUserQuestions, 
-    getGroupQuestions,   
+    getEveryQuestions,   
     updateAnswer, 
     deleteAnswer,
     deleteQuestion,
@@ -21,7 +21,7 @@ questionRouter.put('/updateAnswer', updateAnswer)
 //Getting Questions
 questionRouter.get('/getAllQuestions', getAllQuestions)
 questionRouter.get('/getSingleUserQuestions', getSingleUserQuestions)
-questionRouter.get('/getGroupQuestions', getGroupQuestions)
+questionRouter.get('/getEveryQuestions', getEveryQuestions)
 
 // Searching for questions
 questionRouter.get('/searchQuestion', searchQuestion)

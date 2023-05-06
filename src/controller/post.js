@@ -41,6 +41,8 @@ export function getUserPosts(req, res) {
   const userId = req.params.userId
   console.log(userId)
   Post.find({ userId: userId })
+    .sort({ timePosted: -1 })
+    .limit(20)
     .then((posts) => {
       res.json(posts)
     })
@@ -54,6 +56,21 @@ export function getGroupPosts(req, res) {
   const groupId = req.params.groupId
 
   Post.find({ groupId: groupId })
+    .sort({ timePosted: -1 })
+    .limit(20)
+    .then((posts) => {
+      res.json(posts)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+}
+
+//fetch all posts of a group
+export function getFeedPosts(req, res) {
+  Post.find()
+    .sort({ timePosted: -1 })
+    .limit(20)
     .then((posts) => {
       res.json(posts)
     })
@@ -67,6 +84,7 @@ export function updatePost(req, res) {
   const postId = req.params.postId
   const updatedPost = req.body
   Post.findByIdAndUpdate(postId, updatedPost, { new: true })
+    .sort({ timePosted: -1 })
     .then((post) => {
       res.json(post)
     })
@@ -77,14 +95,17 @@ export function updatePost(req, res) {
 
 //delete psost by id
 export function deletePost(req, res) {
-  let _id = req.params._id
+  let _id = req.params.postId
 
-  Group.findOneAndDelete(_id)
+  console.log(_id)
+  Post.findOneAndDelete({ _id })
     .then(() => {
-      res.json('deleted')
+      console.log('deleted 1')
+      res.json('deleted!')
+      console.log('deleted 2')
     })
     .catch((err) => {
-      console.log(err.message)
+      console.log(err)
     })
 }
 

@@ -18,6 +18,10 @@ const RatingSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
+    photo_url: {
+      type: String,
+      required: false,
+    },
   },
   {
     versionKey: false, // Disable creation of version key

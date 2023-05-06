@@ -7,6 +7,18 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    work: {
+      type: String,
+      required: true,
+    },
+    education: {
+      type: String,
+      required: true,
+    },
+    location: {
+      type: String,
+      required: true,
+    },
     headline: {
       type: String,
       required: false,

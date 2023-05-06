@@ -3,7 +3,7 @@ import {
     addQuestionAnswer, 
     getAllQuestions, 
     getSingleUserQuestions, 
-    getGroupQuestions,   
+    getEveryQuestions,   
     updateAnswer, 
     deleteAnswer,
     deleteQuestion,
@@ -16,17 +16,18 @@ const questionRouter = express.Router()
 questionRouter.post("/addQuestionAnswer", addQuestionAnswer)
 
 //Updating Answers
-questionRouter.put('/updateAnswer/', updateAnswer)
+questionRouter.put('/updateAnswer', updateAnswer)
 
 //Getting Questions
 questionRouter.get('/getAllQuestions', getAllQuestions)
 questionRouter.get('/getSingleUserQuestions', getSingleUserQuestions)
-questionRouter.get('/getGroupQuestions', getGroupQuestions)
+questionRouter.get('/getEveryQuestions', getEveryQuestions)
 
+// Searching for questions
 questionRouter.get('/searchQuestion', searchQuestion)
 
 // Removing
-questionRouter.put('/deleteAnswer/', deleteAnswer)
+questionRouter.put('/deleteAnswer', deleteAnswer)
 questionRouter.delete('/deleteQuestion', deleteQuestion)
 
 export default questionRouter

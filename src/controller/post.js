@@ -13,6 +13,8 @@ export function addNewPost(req, res) {
   const contentText = req.body.contentText
   const images = req.body.images
   const comments = req.body.comments
+  const userName = req.body.userName
+  const photoUrl = req.body.photoUrl
 
   const newPost = new Post({
     userId,
@@ -20,6 +22,8 @@ export function addNewPost(req, res) {
     contentText,
     images,
     comments,
+    userName,
+    photoUrl,
   })
   console.log(newPost)
 
@@ -84,50 +88,24 @@ export function deletePost(req, res) {
     })
 }
 
-//filter by groupId
 export async function searchPostsByContent(req, res) {
-  const searchValue = req.query.searchValue
-  let findObj = JSON.parse(req.query.tempSearchObj)
+  const searchValue = req.query.searchValue.toString()
+  const findObj = req.query.tempSearchObj || {}
   let posts
-  if (searchValue) {
-    // If search exists, the user typed in the search bar
-    posts = await Post.aggregate([
-      {
-        $search: {
-          index: 'default',
-          autocomplete: {
-            query: searchValue, // noticed we assign a dynamic value to "query"
-            path: 'contentText',
-          },
-        },
-      },
-      {
-        $match: findObj,
-      },
-      {
-        $limit: 5,
-      },
-      {
-        $project: {
-          _id: 1,
-          userId: 1,
-          groupId: 1,
-          time: 1,
-          contentText: 1,
-          images: 1,
-          likes: 1,
-          comments: 1,
-        },
-      },
-    ])
-  } else {
-    // The search is empty so the value of "search" is undefined
-    posts = await Post.find()
-  }
 
-  return res.status(200).json({
-    statusCode: 200,
-    message: 'Fetched posts',
-    data: { items },
-  })
+  // Define the search pipeline
+  if (searchValue === undefined || searchValue === null || searchValue === '') {
+    posts = await Post.find({ ...findObj })
+    return res.json(posts)
+  } else {
+    try {
+      posts = await Post.find({ $text: { $search: searchValue }, ...findObj }).sort({
+        score: { $meta: 'textScore' },
+      })
+      return res.json(posts)
+    } catch (error) {
+      console.error(error)
+      return res.status(500).send('Internal Server Error')
+    }
+  }
 }

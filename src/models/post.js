@@ -50,8 +50,16 @@ const postSchema = new mongoose.Schema({
     of: Number,
     default: {},
   },
+  userName: {
+    type: String,
+    required: false,
+  },
+  photoUrl: {
+    type: String,
+    required: false,
+  },
 })
-
+postSchema.index({ contentText: 'text' })
 const Post = mongoose.model('Post', postSchema)
 
 module.exports = Post

@@ -1,7 +1,9 @@
 const postRepository = require('../repository/post')
 
 function addNewPost(postData) {
-  return postRepository.createPost(postData)
+  return postRepository.createPost(postData).then(() => {
+    return 'Post Created'
+  })
 }
 
 function getUserPosts(userId) {

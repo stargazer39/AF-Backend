@@ -46,7 +46,8 @@ export function addNewPost(req, res) {
 
   postService
     .addNewPost(postData)
-    .then(() => {
+    .then((response) => {
+      console.log(response)
       res.json('Post Created')
     })
     .catch((err) => {

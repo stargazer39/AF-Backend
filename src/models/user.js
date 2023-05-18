@@ -9,15 +9,15 @@ const UserSchema = new mongoose.Schema(
     },
     work: {
       type: String,
-      required: true,
+      required: false,
     },
     education: {
       type: String,
-      required: true,
+      required: false,
     },
     location: {
       type: String,
-      required: true,
+      required: false,
     },
     headline: {
       type: String,
@@ -41,7 +41,7 @@ const UserSchema = new mongoose.Schema(
     is_verified: {
       type: Boolean,
       required: true,
-      default: false,
+      default: true,
     },
     photo_url: {
       type: String,

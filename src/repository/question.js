@@ -6,13 +6,13 @@ const mongoose = require('mongoose');
 
 async function addQuestion(data) {
     const newModel = new Question(data);
-    await newModel.save();
+    return await newModel.save();
 }
 
 async function addAnswer(data) {
     const QuestionModal = await Question.findOne({ _id : data.id });
     QuestionModal.Answers.push(data.Answers);
-    await QuestionModal.save();
+    return QuestionModal.save();
 }
 
 async function updateAnswer(data){

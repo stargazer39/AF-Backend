@@ -10,6 +10,11 @@ const TestUserFind = "12345678999e23"
 var TestUserID = null
 var TestQUestionID = null
 
+
+
+// [[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[    TESTING THE SERVICES    ]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
+
+// Test get every question
 describe('getEveryQuestion', () => {
   const testQuestions = [
     { 
@@ -26,7 +31,7 @@ describe('getEveryQuestion', () => {
       { 
       UserId: '444444444444444',
       UserName: 'semora',
-      Question: 'Huge question',
+      Question: 'Smol question',
       Group: 'test',
       Answers: [{
           answerPersonName: 'test',
@@ -40,23 +45,21 @@ describe('getEveryQuestion', () => {
       Question.insertMany(testQuestions)
   }, 10000)
 
-  // Remove the test groups from the database after the tests run
   afterAll(async () => {
     await Question.deleteMany()
     console.log("REMOVED TEST")
   }, 10000)
 
-  // Test that the getAllGroups function returns all groups
   test('get all questions by using getAllTheQuestions method', async () => {
     const questions = await QuestionService.getEveryQuestion()
+    // expects the length of the question to be more then 0 since we added some data
     expect(questions.length).toBeGreaterThan(0)
   })
 })
 
-  
+// Test adding a question
 describe('AddQuestion', () => {
-  test('returns "Question Added" when question is added', async () => {
-    //Define dummy test data to use in the test case
+  test('returns object with the new question', async () => {
     const data = 
       { 
         id : null,
@@ -67,16 +70,15 @@ describe('AddQuestion', () => {
         Answers: []
        }
     
-    // Call the addNewGroup function with test data
     const result = await QuestionService.addQuestionAnswers(data)
-    // Assert that the result is 'Group Created'
+    // expects an object to be retured after creating a question
     expect(result).toEqual(expect.any(Object))
   })
 })
 
+// Test finding a question
 describe('findQuestion', () => {
-  test('returns "Question Added" when question is added', async () => {
-    //Define dummy test data to use in the test case
+  test('returns array of objects', async () => {
     const question = TestUserFind
     const group = "test"
     const singleQuestion = await QuestionService.searchQuestions(question, group)
@@ -86,21 +88,18 @@ describe('findQuestion', () => {
   })
 })
 
+// Test getting user questions
 describe('getUserQuestion', () => {
-  test('returns "Question Added" when question is added', async () => {
-    //Define dummy test data to use in the test case
-
+  test('returns objects of questions', async () => {
     const UserQuestions = await QuestionService.getUserQuestion(TestUserID)
-
+    // check if the userQuestion returns any objects.
     expect(UserQuestions).toEqual(expect.any(Object))
   })
 })
 
-
+// Test adding a qustion
 describe('AddAnswer', () => {
-  test('returns "Question Added" when question is added', async () => {
-    //Define dummy test data to use in the test case
-  
+  test('returns object which contains the new answer', async () => {
     const array = {
       answerPersonID: TestQUestionID,
       answerPersonName : "Semora chan",
@@ -110,20 +109,19 @@ describe('AddAnswer', () => {
       id: TestUserID,
       Answers: array,
     }
-    
-    // Call the addNewGroup function with test data
+
     const result = await QuestionService.addQuestionAnswers(data)
     TestQUestionID = result.Answers[0]._id
     console.log("THIS IS TEST Q ID " + TestQUestionID + result.Answers[0]._id)
-    // Assert that the result is 'Group Created'
+    // check if result contains an object
     expect(result).toEqual(expect.any(Object))
   })
 })
 
+//Test updating an answeer
 describe('UpdateAnswer', () => {
-  test('returns "Question Added" when question is added', async () => {
-    //Define dummy test data to use in the test case
-  
+  test('returns object with updated data', async () => {
+
     const array = {
       answerPersonID: TestQUestionID,
       answerPersonName : "Semora chan",
@@ -134,36 +132,46 @@ describe('UpdateAnswer', () => {
       id: TestUserID,
       Answers: array,
     }
-    
-    // Call the addNewGroup function with test data
+
     const result = await QuestionService.updateAnswers(data)
-    // Assert that the result is 'Group Created'
+    // check if the updated value eauzls to "updated data"
     expect(result.Answers[0].answer).toEqual("updated Data")
   })
 })
 
+//test deleting an answer
 describe('DeleteAnswer', () => {
-  test('returns "Question Added" when question is added', async () => {
-    //Define dummy test data to use in the test case
+  test('returns object when deleting an answer', async () => {
     const id = TestUserID
     const answerId = TestQUestionID
-    
-    // Call the addNewGroup function with test data
+
     const result = await QuestionService.deleteQuestionAnswers(id, answerId)
-    // Assert that the result is 'Group Created'
+    // check if result contains an object
     expect(result).toEqual(expect.any(Object));
   })
 })
 
+//Test deleting a question
 describe('DeleteQuestion', () => {
-  test('returns "Question Added" when question is added', async () => {
-    //Define dummy test data to use in the test case
+  test('returns object when deleting a question', async () => {
     const id = TestUserID
-        
-    // Call the addNewGroup function with test data
+
     const result = await QuestionService.deleteQuestions(id)
-    // Assert that the result is 'Group Created'
+    // check if result contains an object
     expect(result).toEqual(expect.any(Object));
   })
 })
+
+//Test searching for something
+describe('SearchQuestion', () => {
+  test('returns search output array', async () => {
+    const search = "Huge"
+        
+    const result = await QuestionService.getAllTheQuestion(search)
+    // checks if the output size is equal to only one and if the output matches with the search term
+    expect(result.length).toEqual(1);
+    expect(result[0].Question).toEqual("Huge question");
+  })
+})
+
 

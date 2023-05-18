@@ -35,7 +35,7 @@ async function getUserQuestion(userID) {
     return questions;
 }
 
-export async function getAllTheQuestion(search) {
+async function getAllTheQuestion(search) {
     const questions = await getAllQuestions(search);
     return questions;
 }
@@ -59,5 +59,6 @@ module.exports = {
     updateAnswers,
     deleteQuestionAnswers,
     getUserQuestion,
-    deleteQuestions
+    deleteQuestions,
+    getAllTheQuestion
   }

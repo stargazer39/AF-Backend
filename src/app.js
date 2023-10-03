@@ -11,14 +11,17 @@ import passport from 'passport'
 import "./passport";
 import logger from './utils/logger'
 import session from "express-session"
+import cookieParser from 'cookie-parser'
 
 const app = express()
 
+app.use(cookieParser());
+
 app.use(session({
   secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: false
 }));
+
+// app.use(passport.authenticate('google'))
 
 app.use(passport.initialize());
 

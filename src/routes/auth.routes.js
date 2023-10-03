@@ -3,10 +3,8 @@ import { register, verify, login, logout,loginGoogle, googleAuthSuccess, googleC
 import { celebrate, Segments } from 'celebrate'
 import { registerSchema, loginSchema } from '../validations/user'
 import { rateLimit } from "../middleware/auth";
-
 const authRouter = express.Router()
 
-console.log(loginGoogle)
 authRouter.post('/register', rateLimit, celebrate({ [Segments.BODY]: registerSchema }), register)
 authRouter.post('/register/verify', rateLimit, verify)
 authRouter.post('/login', rateLimit, celebrate({ [Segments.BODY]: loginSchema }), login)

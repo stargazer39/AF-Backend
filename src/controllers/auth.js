@@ -25,7 +25,8 @@ export const verify = asyncHandler(async (req, res) => {
 export const login = asyncHandler(async (req, res) => {
   const user = await authLogin(req.body)
   
-  if(user.google_auth && user.google_id == req.user.id) {
+  console.log("dfaf", user, req.user, req.body)
+  if(user.google_auth && user.google_id == req.session.user.id) {
     return sendTokenResponse(res, user, 'User logged in successfully')
   }
 
@@ -54,7 +55,8 @@ export const googleCallback = passport.authenticate('google', {
 export const googleAuthSuccess = asyncHandler(async (req, res) => {
   const user = req.user;
   const existingUser = await getOneUser({ email: user.email }, true)
-  
+  const redirect = `${process.env.APP_DOMAIN}/login?email=${user.email}&auth=google`;
+
   if(!existingUser) {
     // No existing user. register.
     const registeredUser = await createUser({
@@ -68,26 +70,21 @@ export const googleAuthSuccess = asyncHandler(async (req, res) => {
     })
 
     console.log(registeredUser, "regss no exist")
-
-    return sendTokenResponse(res, registeredUser, 'User logged in successfully (User did not exist. so added)')
+    req.session.user = registeredUser;
+    req.session.save();
+    res.redirect(redirect);
+    return;
   }
 
   console.log(user, "fdaadf", existingUser);
 
   if(existingUser.google_auth && existingUser.google_id == user.id) {
-    return sendTokenResponse(res, existingUser, 'User logged in successfully (User exists. Google auth)')
+    req.session.user = existingUser;
+    req.session.save();
+    res.redirect(redirect);
+    return;
   }
 
   return makeResponse({ res, status: 401, message: 'Something went wrong. Try again!' })
-  // const user = await authLogin(req.body)
-  // if (!user)
-  //   return makeResponse({ res, status: 401, message: 'Invalid email or password. Try again!' })
-  // if (!user.is_verified)
-  //   return makeResponse({
-  //     res,
-  //     status: 401,
-  //     message: 'Account not verified. Please check your email',
-  //   })
-  // return sendTokenResponse(res, user, 'User logged in successfully')
 })
 

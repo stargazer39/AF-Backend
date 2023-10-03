@@ -34,6 +34,9 @@ export const verifyUser = async ({ email, verificationCode }) => {
 export const authLogin = async ({ email, password }) => {
   const user = await getOneUser({ email }, true)
   if (!user) return false
+
+  if(user.google_auth) return user;
+  
   const isPasswordMatch = await new Promise((resolve, reject) => {
     bcrypt.compare(password, user.password, (err, hash) => {
       if (err) reject(err)

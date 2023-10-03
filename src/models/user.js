@@ -30,9 +30,16 @@ const UserSchema = new mongoose.Schema(
       lowercase: true,
     },
     password: {
+      type: String, // Validation written as separate function
+    },
+    google_auth: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    google_id: {
       type: String,
-      required: true,
-      minlength: 8,
+      required: false,
     },
     verification_code: {
       type: Number,
@@ -96,6 +103,13 @@ const UserSchema = new mongoose.Schema(
     timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' },
   },
 )
+
+UserSchema.path('password').validate(function(value) {
+  if (!this.google_auth) {
+    return value.length === 8;
+  }
+  return true;
+}, 'Google auth must be true or password length must be 8.');
 
 UserSchema.plugin(aggregatePaginate)
 

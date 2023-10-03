@@ -7,9 +7,22 @@ import connectDB from './database'
 import router from './routes/index.routes'
 import { isCelebrateError } from 'celebrate'
 import { makeResponse } from './utils/response'
+import passport from 'passport'
+import "./passport";
 import logger from './utils/logger'
+import session from "express-session"
 
 const app = express()
+
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+
+app.use(passport.session());
 
 app.use(helmet())
 

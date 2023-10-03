@@ -10,6 +10,7 @@ const transport = nodemailer.createTransport({
         user: MAIL_CREDENTIALS.USER,
         pass: MAIL_CREDENTIALS.PASS,
     },
+    secure: true
 });
 
 export const sendMail = async (email, templateName, replacements, subject, attachments = []) => {
